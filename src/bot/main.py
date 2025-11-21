@@ -47,7 +47,7 @@ async def run_bot() -> None:
     intents = discord.Intents.default()
     intents.message_content = True
 
-    bot = commands.Bot(command_prefix="!", intents=intents, description="Bot do Discord")
+    bot = commands.Bot(command_prefix="s!", intents=intents, description="Bot do Discord")
     await _load_extensions(bot)
 
     logging.basicConfig(level=logging.INFO)
