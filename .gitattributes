@@ -1,0 +1,6 @@
+* text=auto
+
+# Normalizar finais de linha de scripts
+*.ps1 text eol=crlf
+*.sh text eol=lf
+*.py text eol=lf
