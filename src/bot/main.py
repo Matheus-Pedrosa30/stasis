@@ -43,11 +43,12 @@ async def run_bot() -> None:
     token = os.getenv("DISCORD_BOT_TOKEN")
     if not token:
         raise RuntimeError("Defina DISCORD_BOT_TOKEN no ambiente ou em um arquivo .env.")
+    prefix = os.getenv("DISCORD_BOT_PREFIX", "s!")
 
     intents = discord.Intents.default()
     intents.message_content = True
 
-    bot = commands.Bot(command_prefix="s!", intents=intents, description="Bot do Discord")
+    bot = commands.Bot(command_prefix=prefix, intents=intents, description="Bot do Discord")
     await _load_extensions(bot)
 
     logging.basicConfig(level=logging.INFO)

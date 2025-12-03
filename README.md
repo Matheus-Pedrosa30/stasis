@@ -37,7 +37,8 @@ Base inicial em Python usando `discord.py`, com comandos separados por arquivo e
    ```
 
 ## Uso inicial
-- Comando `!ping`: responde com a latencia atual do bot.
+- Defina `DISCORD_BOT_TOKEN` e, opcionalmente, ajuste `DISCORD_BOT_PREFIX` no arquivo `.env` (padrao `s!`).
+- Comando `!ping` (ou usando o prefixo configurado): responde com a latencia atual do bot.
 - Para criar novos comandos, adicione um novo arquivo `.py` em `src/bot/commands` contendo uma `Cog` e uma funcao `async def setup(bot)` para registrar o comando.
 
 ## Proximos passos sugeridos
