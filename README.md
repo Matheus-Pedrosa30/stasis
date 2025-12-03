@@ -13,6 +13,8 @@ Base inicial em Python usando `discord.py`, com comandos separados por arquivo e
 ## Requisitos
 - Python 3.11+
 - Token do bot no Portal de Desenvolvedores do Discord (habilite a intent de message content para comandos prefixados).
+- FFmpeg para tocar audio (pode estar no PATH ou apontado pela variavel `FFMPEG_BINARY`; em Windows o bot baixa automaticamente um binario portavel se nao houver).
+- Dependencia de voz `PyNaCl` (incluida em `requirements.txt`).
 
 ## Como comecar
 1) Crie um ambiente virtual (opcional, mas recomendado):
@@ -32,6 +34,7 @@ Base inicial em Python usando `discord.py`, com comandos separados por arquivo e
    ```bash
    pip install -r requirements.txt
    ```
+   - Se nao quiser instalar o FFmpeg no PATH, defina `FFMPEG_BINARY` com o caminho completo do executavel (ex: `FFMPEG_BINARY=bin/ffmpeg.exe`). Em Windows, sem essa variavel, o bot baixa automaticamente um pacote portavel (BtbN/FFmpeg-Builds) para `config/.ffmpeg/`.
 4) Execute o bot (no diretorio raiz do projeto):
    ```bash
    python -m src.bot.main
@@ -40,6 +43,7 @@ Base inicial em Python usando `discord.py`, com comandos separados por arquivo e
 ## Uso inicial
 - Defina `DISCORD_BOT_TOKEN` e, opcionalmente, ajuste `DISCORD_BOT_PREFIX` no arquivo `.env` (padrao `s!`).
 - Comando `!ping` (ou usando o prefixo configurado): responde com a latencia atual do bot.
+- Comando `!play {busca}`: entra no seu canal de voz e toca o melhor resultado na ordem YouTube > Spotify > SoundCloud > Deezer.
 - Para criar novos comandos, adicione um novo arquivo `.py` em `src/bot/commands` contendo uma `Cog` e uma funcao `async def setup(bot)` para registrar o comando.
 
 ## Proximos passos sugeridos

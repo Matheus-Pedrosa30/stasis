@@ -5,6 +5,8 @@ from typing import Dict, Iterable, Optional, Tuple
 import discord
 from yt_dlp import YoutubeDL
 
+from src.utils.ffmpeg_loader import ensure_ffmpeg_binary
+
 logger = logging.getLogger(__name__)
 
 YDL_OPTS: Dict[str, object] = {
@@ -75,8 +77,10 @@ class AudioSearcher:
 
 def create_audio_source(result: SearchResult) -> discord.AudioSource:
     """Cria uma fonte de audio via FFmpeg para streaming."""
+    executable = ensure_ffmpeg_binary()
     return discord.FFmpegPCMAudio(
         result.stream_url,
+        executable=executable,
         before_options=FFMPEG_BEFORE_OPTS,
         options="-vn",
     )
