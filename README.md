@@ -5,6 +5,7 @@ Base inicial em Python usando `discord.py`, com comandos separados por arquivo e
 ## Estrutura
 - `src/bot/main.py`: ponto de entrada que carrega comandos e inicia o bot.
 - `src/bot/commands/`: um arquivo por comando (`ping.py`).
+- `src/utils/`: utilitarios compartilhados (ex: audio e busca).
 - `config/example.env`: exemplo de variaveis de ambiente.
 - `requirements.txt`: dependencias do projeto.
 - `.gitattributes` e `.gitignore`: configuracoes de git.
