@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import sys
 from pathlib import Path
 from typing import Iterable
 
@@ -8,6 +9,9 @@ import discord
 from discord.ext import commands
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# Garante que o pacote src/ seja importavel mesmo quando rodando o arquivo diretamente.
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 DEFAULT_ENV_PATH = BASE_DIR / "config" / ".env"
 COMMANDS_DIR = Path(__file__).resolve().parent / "commands"
 COMMANDS_PACKAGE = "src.bot.commands"
