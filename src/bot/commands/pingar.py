@@ -48,8 +48,14 @@ class Pingar(commands.Cog):
         for idx in range(1, count + 1):
             if cancel_event.is_set():
                 break
-            await ctx.send(f"{mention} ({idx}/{count})", delete_after=delete_after)
-            sent = idx
+            try:
+                await ctx.send(f"{mention} ({idx}/{count})", delete_after=delete_after)
+                sent = idx
+            except Exception:
+                await asyncio.sleep(0.3)
+                continue
+            # reduz chances de rate limit
+            await asyncio.sleep(0.2 if count > 30 or resolved_silent else 0.05)
 
         watcher.cancel()
 
