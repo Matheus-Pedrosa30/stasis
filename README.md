@@ -1,4 +1,4 @@
-# Discord Bot (opensource)
+# OpenSource Discord Bot
 
 Projeto aberto em Python com `discord.py`, organizado de forma modular para facilitar extensao e manutencao.
 
