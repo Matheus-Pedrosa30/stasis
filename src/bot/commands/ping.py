@@ -8,7 +8,11 @@ class Ping(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
-    @commands.command(name="ping", help="Responde com a latência do bot.")
+    @commands.command(
+        name="ping",
+        help="Responde com a latência do bot.",
+        extras={"category": "geral"},
+    )
     async def ping(self, ctx: commands.Context) -> None:
         latency_ms = self.bot.latency * 1000
         await ctx.reply(f"Pong! {latency_ms:.0f}ms", mention_author=False)

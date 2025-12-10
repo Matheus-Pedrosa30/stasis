@@ -8,6 +8,8 @@ from typing import Iterable
 import discord
 from discord.ext import commands
 
+from src.utils.logging_config import setup_logging
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Garante que o pacote src/ seja importavel mesmo quando rodando o arquivo diretamente.
 if str(BASE_DIR) not in sys.path:
@@ -52,10 +54,15 @@ async def run_bot() -> None:
     intents = discord.Intents.default()
     intents.message_content = True
 
-    bot = commands.Bot(command_prefix=prefix, intents=intents, description="Bot do Discord")
+    bot = commands.Bot(
+        command_prefix=prefix,
+        intents=intents,
+        description="Bot do Discord",
+        help_command=None,  # usamos help customizado
+    )
     await _load_extensions(bot)
 
-    logging.basicConfig(level=logging.INFO)
+    setup_logging(logging.INFO)
 
     async with bot:
         await bot.start(token)
