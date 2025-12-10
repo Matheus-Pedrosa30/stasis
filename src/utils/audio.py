@@ -72,13 +72,13 @@ def search_youtube(query: str) -> Optional[SearchResult]:
 
 
 def create_audio_source(result: SearchResult, executable: Optional[str] = None) -> discord.AudioSource:
-    """Cria uma fonte de audio via FFmpeg para streaming (Opus)."""
+    """Cria uma fonte de audio via FFmpeg para streaming PCM (para uso com PCMVolumeTransformer)."""
     executable = executable or ensure_ffmpeg_binary()
     headers_opt = ""
     if result.http_headers:
         header_lines = "".join(f"{k}: {v}\r\n" for k, v in result.http_headers.items())
         headers_opt = f' -headers "{header_lines}"'
-    return discord.FFmpegOpusAudio(
+    return discord.FFmpegPCMAudio(
         result.stream_url,
         executable=executable,
         before_options=f"{FFMPEG_BEFORE_OPTS}{headers_opt}",
