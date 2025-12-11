@@ -1,60 +1,43 @@
-# OpenSource Discord Bot
+# Open Source Discord Bot
 
-Projeto aberto em Python com `discord.py`, organizado de forma modular para facilitar extensao e manutencao.
+Python bot built with `discord.py`, modular structure for easy maintenance and extension.
 
-## Estrutura
+## Structure
+- `src/bot/main.py`: bot bootstrap, loads extensions and logging.
+- `src/bot/commands/`: one file per command (e.g., `ping`, `pingar`, `help`, `play`).
+- `src/utils/`: shared utilities (logging, FFmpeg loader, audio helpers).
+- `config/example.env`: sample env vars; copy to `config/.env`.
+- `requirements.txt`: dependencies.
+- Scripts: `install.bat` (sets up Python 3.11 venv + deps), `start_bot.bat` (persistent console), `stop_bot.bat` (kills running bot).
 
-- `src/bot/main.py`: inicia o bot, carrega extensoes e logging.
-- `src/bot/commands/`: comandos desacoplados por arquivo (ex.: `ping`, `pingar`, `help`).
-- `src/utils/`: utilidades compartilhadas (logging, FFmpeg loader, etc.).
-- `config/example.env`: exemplo de variaveis; copie para `config/.env`.
-- `requirements.txt`: dependencias.
-- Scripts: `start_bot.bat` (abre console persistente) e `stop_bot.bat` (encerra instancia em execucao).
-
-## Pre-requisitos
-
+## Prerequisites
 - Python 3.11+
-- Criar um bot no Discord Developer Portal e obter `DISCORD_BOT_TOKEN`.
-- FFmpeg disponivel ou configure `FFMPEG_BINARY` (Windows baixa automaticamente se nao houver).
-- `PyNaCl` para voz (ja em `requirements.txt`).
+- Discord bot token from the Developer Portal (`DISCORD_BOT_TOKEN`).
+- FFmpeg available or set `FFMPEG_BINARY` (Windows auto-downloads if missing).
+- `PyNaCl` for voice (already in `requirements.txt`).
 
-## Configuracao
-
-1) (Opcional) Ambiente virtual:
-
-   ```python
-   python -m venv .venv
-   .venv\Scripts\activate
+## Setup
+1) Quick setup (recommended):
+   ```cmd
+   install.bat
    ```
-
-2) Variaveis: copie e edite
-
+   Creates `.venv`, ensures Python 3.11, installs deps.
+2) Env vars:
    ```cmd
    copy config\example.env config\.env
    ```
+   Set at least `DISCORD_BOT_TOKEN` (optional `DISCORD_BOT_PREFIX`, `FFMPEG_BINARY`).
 
-   Defina ao menos `DISCORD_BOT_TOKEN` e, opcionalmente, `DISCORD_BOT_PREFIX`.
-3) Dependencias:
-
-   ```python
-   pip install -r requirements.txt
-   ```
-
-## Uso
-
-- Rodar pelo script:
-
-  ```exe
+## Run
+- Using scripts:
+  ```cmd
   start_bot.bat
   ```
-
-  (para parar: `stop_bot.bat`)
-- Ou diretamente:
-
-  ```python
+  To stop: `stop_bot.bat`
+- Or directly:
+  ```cmd
   python -m src.bot.main
   ```
 
-## Observacao
-
-Este README e enxuto e nao sera atualizado a cada mudanca de comando; consulte o codigo em `src/bot/commands/` para saber o comportamento atual. Contribuicoes sao bem-vindas.
+## Notes
+This README stays minimal and is not updated on every feature change. Check `src/bot/commands/` for current command behavior. Contributions welcome.
