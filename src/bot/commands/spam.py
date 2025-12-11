@@ -3,27 +3,31 @@ import asyncio
 from discord.ext import commands
 
 
-class Pingar(commands.Cog):
-    """Envia mencoes repetidas com limite."""
+CANCEL_EMOJI = "X"
+
+
+class Spam(commands.Cog):
+    """Send repeated mentions with a limit."""
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     @commands.command(
-        name="pingar",
-        help="pingar <@usuario> <vezes> [silent]: envia mencoes com contador (limite 150).",
+        name="spam",
+        aliases=["spammention"],
+        help="spam <@user> <times> [silent]: sends repeated mentions (limit 150).",
         extras={"category": "spam"},
     )
-    async def pingar(self, ctx: commands.Context, mention: str, times: int, silent: bool | None = None) -> None:
+    async def spam(self, ctx: commands.Context, mention: str, times: int, silent: bool | None = None) -> None:
         count = max(1, min(times, 150))
         resolved_silent = silent if silent is not None else count > 5
         delete_after = 0.5 if resolved_silent else None
 
-        status = await ctx.reply("Pingando...", mention_author=False)
+        status = await ctx.reply("Spamming...", mention_author=False)
         try:
-            await status.add_reaction("❌")
+            await status.add_reaction(CANCEL_EMOJI)
         except Exception:
-            pass  # permissao pode faltar, mas nao quebra o comando
+            pass  # missing perms are non-blocking
 
         cancel_event = asyncio.Event()
 
@@ -34,7 +38,7 @@ class Pingar(commands.Cog):
                     check=lambda reaction, user: (
                         user.id == ctx.author.id
                         and reaction.message.id == status.id
-                        and str(reaction.emoji) == "❌"
+                        and str(reaction.emoji) == CANCEL_EMOJI
                     ),
                     timeout=None,
                 )
@@ -58,10 +62,10 @@ class Pingar(commands.Cog):
         watcher.cancel()
 
         if cancel_event.is_set():
-            await status.edit(content=f"Pingado {sent}/{count} (cancelado).")
+            await status.edit(content=f"Spammed {sent}/{count} (cancelled).")
         else:
-            await status.edit(content=f"Pingado {sent}/{count}.")
+            await status.edit(content=f"Spammed {sent}/{count}.")
 
 
 async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(Pingar(bot))
+    await bot.add_cog(Spam(bot))
