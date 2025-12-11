@@ -54,8 +54,6 @@ class Pingar(commands.Cog):
             except Exception:
                 await asyncio.sleep(0.3)
                 continue
-            # reduz chances de rate limit
-            await asyncio.sleep(0.2 if count > 30 or resolved_silent else 0.05)
 
         watcher.cancel()
 
