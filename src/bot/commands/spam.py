@@ -3,7 +3,7 @@ import asyncio
 from discord.ext import commands
 
 
-CANCEL_EMOJI = "X"
+CANCEL_EMOJI = "❌"
 
 
 class Spam(commands.Cog):
