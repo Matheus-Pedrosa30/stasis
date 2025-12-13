@@ -15,7 +15,7 @@ class Ping(commands.Cog):
     )
     async def ping(self, ctx: commands.Context) -> None:
         latency_ms = self.bot.latency * 1000
-        await ctx.reply(f"Pong! {latency_ms:.0f}ms", mention_author=False)
+        await ctx.reply(f"Pong! 🏓 {latency_ms:.0f}ms", mention_author=False)
 
 
 async def setup(bot: commands.Bot) -> None:
