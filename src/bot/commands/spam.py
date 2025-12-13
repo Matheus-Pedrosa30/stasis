@@ -1,4 +1,6 @@
 import asyncio
+import os
+import re
 
 from discord.ext import commands
 
@@ -19,6 +21,13 @@ class Spam(commands.Cog):
         extras={"category": "spam"},
     )
     async def spam(self, ctx: commands.Context, mention: str, times: int, silent: bool | None = None) -> None:
+        blocked_id = os.getenv("SPAM_BLOCK_USER_ID")
+        if blocked_id:
+            match = re.search(r"\d+", mention)
+            if match and match.group(0) == blocked_id:
+                await ctx.reply("This user is blocked from spam mentions.", mention_author=False)
+                return
+
         count = max(1, min(times, 150))
         resolved_silent = silent if silent is not None else count > 5
         delete_after = 0.5 if resolved_silent else None
